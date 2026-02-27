@@ -964,6 +964,12 @@
       el.onclick = handler;
     }
 
+    function flashPressed(el){
+      if(!el) return;
+      el.classList.add("is-pressed");
+      setTimeout(() => el.classList.remove("is-pressed"), 180);
+    }
+
     /* ---- Bind buttons safely ---- */
     bind("startBtn", startLab);
     bind("viewResultsBtn", showStoredResults);
@@ -974,10 +980,10 @@
     bind("resetAllBtn", resetAll);
 
     /* Timer buttons */
-    bind("timerStartBtn", startActiveTimer);
-    bind("timerStopBtn", stopActiveTimer);
-    bind("timerResetBtn", resetActiveTimer);
-
+    bind("timerStartBtn", (e) => { flashPressed(e.currentTarget); startActiveTimer(); });
+    bind("timerStopBtn",  (e) => { flashPressed(e.currentTarget); stopActiveTimer(); });
+    bind("timerResetBtn", (e) => { flashPressed(e.currentTarget); resetActiveTimer(); });
+   
     /* Next button */
     if(nextBtn){
       nextBtn.onclick = () => { unlockNext(); nextRound(); };
