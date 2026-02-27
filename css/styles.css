@@ -1,27 +1,42 @@
 /* ---- Creative Expansion Lab: style.css ---- */
-/* Build stamp (change this line to force a visible diff in commits): 2026-02-24-01 */
+/* Build stamp (change this line to force a visible diff in commits): 2026-02-27-01 */
 
 /* ---- Base ---- */
 :root{
-  --bg:#0b0b0b;
-  --bg2:#101010;
-  --paper:#ffffff;
-  --ink:#111;
-  --muted:#666;
-  --line:#eaeaea;
-  --accent:#111;
-  --soft:#f6f6f6;
-  --good:#0b7;
-  --warn:#c80;
-  --bad:#d33;
+  /* ---- Cyber palette ---- */
+  --bg:#070a0f;
+  --bg2:#05070c;
+  --paper:#0c121b;     /* cards are now dark “glass” */
+  --ink:#e9f2ff;       /* light text on cards */
+  --muted: rgba(233,242,255,.62);
+  --line: rgba(140,190,255,.16);
+
+  --accent:#00e5ff;    /* cyan */
+  --accent2:#8a5bff;   /* violet */
+  --accent3:#00ff9a;   /* green */
+  --soft: rgba(255,255,255,.06);
+
+  --good:#00ff9a;
+  --warn:#ffcc00;
+  --bad:#ff3b5c;
 
   --radius:14px;
-  --shadow:0 12px 30px rgba(0,0,0,.12);
+  --shadow: 0 18px 45px rgba(0,0,0,.55);
   --max: 860px;
 
   /* ---- Chart sizing ---- */
   --chart-h: 320px;        /* default chart height */
   --chart-h-mobile: 320px; /* mobile chart height */
+
+  /* ---- Cyber UI primitives ---- */
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --scanline: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,.06) 0px,
+    rgba(255,255,255,.06) 1px,
+    rgba(0,0,0,0) 2px,
+    rgba(0,0,0,0) 5px
+  );
 }
 
 *{ box-sizing:border-box; }
@@ -31,8 +46,42 @@ html, body{ height:100%; }
 body{
   margin:0;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background: linear-gradient(180deg, var(--bg2), var(--bg));
-  color:#eee;
+
+  /* ---- Scientific/cyber lab background ---- */
+  background:
+    radial-gradient(900px 520px at 18% 12%, rgba(0,229,255,.16), rgba(0,0,0,0) 60%),
+    radial-gradient(760px 520px at 80% 24%, rgba(138,91,255,.18), rgba(0,0,0,0) 58%),
+    radial-gradient(900px 620px at 50% 100%, rgba(0,255,154,.10), rgba(0,0,0,0) 60%),
+    linear-gradient(180deg, var(--bg2), var(--bg));
+  color:#eaf2ff;
+
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Grid overlay + scanlines for “lab display” feel */
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  pointer-events:none;
+  background:
+    linear-gradient(to right, rgba(140,190,255,.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(140,190,255,.05) 1px, transparent 1px),
+    var(--scanline);
+  background-size: 44px 44px, 44px 44px, auto;
+  mix-blend-mode: screen;
+  opacity: .22;
+}
+
+/* Subtle vignette */
+body::after{
+  content:"";
+  position: fixed;
+  inset: 0;
+  pointer-events:none;
+  background: radial-gradient(circle at 50% 30%, rgba(0,0,0,0) 40%, rgba(0,0,0,.55) 100%);
+  opacity: .55;
 }
 
 /* ---- Header ---- */
@@ -40,9 +89,11 @@ header{
   position: sticky;
   top:0;
   z-index:10;
-  backdrop-filter: blur(10px);
-  background: rgba(10,10,10,.75);
-  border-bottom: 1px solid rgba(255,255,255,.08);
+  backdrop-filter: blur(12px);
+
+  background: rgba(6,10,16,.72);
+  border-bottom: 1px solid rgba(0,229,255,.14);
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
 }
 
 .bar{
@@ -56,24 +107,38 @@ header{
 }
 
 .title{ display:flex; flex-direction:column; gap:2px; }
-.title strong{ font-size: 15px; letter-spacing:.2px; }
-.title span{ font-size: 12px; color: rgba(255,255,255,.65); }
+.title strong{
+  font-size: 15px;
+  letter-spacing:.8px;
+  text-transform: uppercase;
+  font-family: var(--mono);
+  color: rgba(233,242,255,.95);
+}
+.title span{
+  font-size: 12px;
+  color: rgba(0,229,255,.70);
+  letter-spacing:.3px;
+  font-family: var(--mono);
+}
 
 /* ---- Pills ---- */
 .pill{
   font-size:12px;
   padding:6px 10px;
-  border:1px solid rgba(255,255,255,.16);
+  border:1px solid rgba(0,229,255,.22);
   border-radius: 999px;
-  color: rgba(255,255,255,.85);
-  background: rgba(255,255,255,.06);
+  color: rgba(233,242,255,.90);
+  background: rgba(255,255,255,.05);
   white-space:nowrap;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.18) inset;
 }
 
 .timer{
   font-variant-numeric: tabular-nums;
   font-size: 13px;
-  color: rgba(255,255,255,.92);
+  color: rgba(233,242,255,.95);
+  font-family: var(--mono);
+  letter-spacing:.2px;
 }
 
 /* ---- Main Layout ---- */
@@ -85,16 +150,50 @@ main{
 
 /* ---- Cards ---- */
 .card{
-  background: var(--paper);
+  background:
+    radial-gradient(420px 220px at 15% 10%, rgba(0,229,255,.10), rgba(0,0,0,0) 60%),
+    radial-gradient(360px 240px at 85% 0%, rgba(138,91,255,.10), rgba(0,0,0,0) 55%),
+    rgba(12,18,27,.88);
+
   color: var(--ink);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 18px;
   margin: 14px 0;
-  border: 1px solid rgba(0,0,0,.06);
+
+  border: 1px solid rgba(0,229,255,.14);
+  position: relative;
+  overflow: hidden;
 }
 
-.card h1, .card h2, .card h3 { margin: 0 0 10px; }
+/* card “circuit” edge glow */
+.card::before{
+  content:"";
+  position:absolute;
+  inset: -1px;
+  border-radius: calc(var(--radius) + 1px);
+  background:
+    conic-gradient(from 90deg,
+      rgba(0,229,255,.0),
+      rgba(0,229,255,.28),
+      rgba(138,91,255,.22),
+      rgba(0,255,154,.22),
+      rgba(0,229,255,.0)
+    );
+  filter: blur(18px);
+  opacity: .35;
+  pointer-events:none;
+}
+
+.card h1, .card h2, .card h3{
+  margin: 0 0 10px;
+  letter-spacing:.3px;
+}
+.card h1, .card h2{
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
 .muted{ color: var(--muted); }
 
 /* ---- Form Layout ---- */
@@ -106,29 +205,43 @@ main{
 .row > *{ flex: 1; min-width: 240px; }
 
 label{
-  font-size:13px;
-  color:#333;
+  font-size:12px;
+  color: rgba(233,242,255,.78);
   display:block;
   margin:10px 0 6px;
+  letter-spacing:.6px;
+  text-transform: uppercase;
+  font-family: var(--mono);
 }
 
 input[type="text"], input[type="number"], textarea, select{
   width:100%;
   padding: 12px 12px;
   border-radius: 12px;
-  border: 1px solid var(--line);
-  background: #fff;
-  color:#111;
+
+  border: 1px solid rgba(140,190,255,.20);
+  background: rgba(4,8,14,.65);
+  color: rgba(233,242,255,.95);
+
   outline:none;
-  transition: border-color .15s ease, box-shadow .15s ease;
+  transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+}
+
+input[type="text"]::placeholder,
+input[type="number"]::placeholder,
+textarea::placeholder{
+  color: rgba(233,242,255,.45);
 }
 
 input[type="text"]:focus,
 input[type="number"]:focus,
 textarea:focus,
 select:focus{
-  border-color: rgba(17,17,17,.55);
-  box-shadow: 0 0 0 3px rgba(17,17,17,.08);
+  border-color: rgba(0,229,255,.55);
+  box-shadow:
+    0 0 0 3px rgba(0,229,255,.14),
+    0 0 22px rgba(0,229,255,.12);
+  background: rgba(4,8,14,.78);
 }
 
 textarea{
@@ -138,17 +251,17 @@ textarea{
 
 .hr{
   height:1px;
-  background: var(--line);
+  background: rgba(140,190,255,.16);
   margin: 14px 0;
 }
 
 /* ---- Notices ---- */
 .notice{
-  background: #fff7e6;
-  border: 1px solid #ffe0a8;
+  background: rgba(255,204,0,.08);
+  border: 1px solid rgba(255,204,0,.22);
   padding: 12px 14px;
   border-radius: 12px;
-  color:#5a3d00;
+  color: rgba(255,230,160,.92);
 }
 
 /* ---- Buttons ---- */
@@ -170,24 +283,40 @@ button{
   font-weight: 900;
 
   cursor:pointer;
-  transition: transform .05s ease, filter .15s ease, opacity .15s ease;
-  letter-spacing: .1px;
+  transition: transform .05s ease, filter .15s ease, opacity .15s ease, box-shadow .15s ease;
+  letter-spacing: .2px;
+
+  font-family: var(--mono);
+  text-transform: uppercase;
 }
 
 button:active{ transform: translateY(1px); }
 
-.btn-primary{ background: #111; color:#fff; }
-.btn-soft{ background: var(--soft); color:#111; }
-.btn-danger{ background: #d33; color:#fff; }
+.btn-primary{
+  color:#001018;
+  background:
+    linear-gradient(90deg, rgba(0,229,255,.95), rgba(138,91,255,.90));
+  box-shadow:
+    0 10px 22px rgba(0,229,255,.10),
+    0 10px 22px rgba(138,91,255,.10);
+}
+.btn-soft{
+  background: rgba(255,255,255,.06);
+  color: rgba(233,242,255,.92);
+  border: 1px solid rgba(140,190,255,.18);
+}
+.btn-danger{
+  background: linear-gradient(90deg, rgba(255,59,92,.92), rgba(255,120,120,.80));
+  color:#130008;
+}
 
-/* Header outline buttons: make them WHITE pills but with BOLD BLACK TEXT like you asked */
 .btn-outline{
   background: rgba(255,255,255,.92);
   border: 1px solid rgba(0,0,0,.12);
   color: #000;
 }
 
-button:hover{ filter: brightness(1.03); }
+button:hover{ filter: brightness(1.06); }
 button:disabled{
   opacity:.5;
   cursor:not-allowed;
@@ -197,8 +326,8 @@ button:disabled{
 
 /* ---- Make the Next button visually consistent (kept!) ---- */
 #nextBtn{
-  background:#111;
-  color:#fff;
+  background: linear-gradient(90deg, rgba(0,229,255,.95), rgba(0,255,154,.90));
+  color:#001018;
 }
 
 /* Optional: keep Back/Next aligned nicely on small screens */
@@ -209,14 +338,15 @@ button:disabled{
 /* ---- Progress ---- */
 .progress{
   height:8px;
-  background: rgba(255,255,255,.12);
+  background: rgba(255,255,255,.08);
   border-radius:999px;
   overflow:hidden;
+  border: 1px solid rgba(140,190,255,.14);
 }
 .progress > div{
   height:100%;
   width:0%;
-  background: rgba(255,255,255,.9);
+  background: linear-gradient(90deg, rgba(0,229,255,.95), rgba(0,255,154,.90));
   transition: width .2s ease;
 }
 
@@ -227,13 +357,13 @@ button:disabled{
   gap:10px;
 }
 .kpi .box{
-  border: 1px solid var(--line);
+  border: 1px solid rgba(140,190,255,.18);
   border-radius: 12px;
   padding: 10px;
-  background: #fff;
+  background: rgba(4,8,14,.55);
 }
-.kpi .box .n{ font-size: 24px; font-weight: 800; }
-.kpi .box .t{ font-size: 12px; color: var(--muted); }
+.kpi .box .n{ font-size: 24px; font-weight: 800; color: rgba(233,242,255,.95); }
+.kpi .box .t{ font-size: 12px; color: var(--muted); font-family: var(--mono); text-transform: uppercase; letter-spacing:.7px; }
 
 /* ---- Simple status colors ---- */
 .good{ color: var(--good); font-weight:700; }
@@ -247,9 +377,16 @@ table{
 }
 th, td{
   padding:10px;
-  border-bottom:1px solid var(--line);
+  border-bottom:1px solid rgba(140,190,255,.16);
 }
-th{ text-align:left; font-size:13px; color:#333; }
+th{
+  text-align:left;
+  font-size:12px;
+  color: rgba(233,242,255,.78);
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing:.8px;
+}
 
 /* ---- Responsive ---- */
 @media (max-width: 900px){
@@ -279,8 +416,10 @@ th{ text-align:left; font-size:13px; color:#333; }
 
 /* ---- Right Visual Panel ---- */
 .visual-card{
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.12);
+  background:
+    radial-gradient(520px 260px at 20% 10%, rgba(0,229,255,.12), rgba(0,0,0,0) 60%),
+    rgba(255,255,255,.04);
+  border: 1px solid rgba(0,229,255,.16);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
@@ -296,26 +435,30 @@ th{ text-align:left; font-size:13px; color:#333; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(255,255,255,.10);
+  border-bottom: 1px solid rgba(0,229,255,.14);
 }
 .visual-head .label{
-  color: rgba(255,255,255,.88);
-  font-weight: 600;
-  letter-spacing: .2px;
-  font-size: 14px;
+  color: rgba(233,242,255,.92);
+  font-weight: 700;
+  letter-spacing: .9px;
+  font-size: 13px;
+  font-family: var(--mono);
+  text-transform: uppercase;
 }
 .visual-head .hint{
-  color: rgba(255,255,255,.60);
+  color: rgba(233,242,255,.58);
   font-size: 12px;
+  font-family: var(--mono);
 }
 
 /* ---- Media ---- */
 .visual-media{
   aspect-ratio: 4 / 5;
   width: 100%;
-  background: radial-gradient(circle at 40% 30%, rgba(80,180,255,.16), rgba(0,0,0,0) 55%),
-              radial-gradient(circle at 70% 70%, rgba(255,80,200,.10), rgba(0,0,0,0) 60%),
-              rgba(0,0,0,.35);
+  background:
+    radial-gradient(circle at 40% 30%, rgba(0,229,255,.18), rgba(0,0,0,0) 55%),
+    radial-gradient(circle at 70% 70%, rgba(138,91,255,.12), rgba(0,0,0,0) 60%),
+    rgba(0,0,0,.35);
   display: grid;
   place-items: center;
 }
@@ -326,7 +469,7 @@ th{ text-align:left; font-size:13px; color:#333; }
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: saturate(1.15) contrast(1.05);
+  filter: saturate(1.10) contrast(1.08);
 }
 
 /* ---- Subtle animated glow frame ---- */
@@ -335,7 +478,13 @@ th{ text-align:left; font-size:13px; color:#333; }
   position:absolute;
   inset:-2px;
   border-radius: calc(var(--radius) + 2px);
-  background: conic-gradient(from 180deg, rgba(0,255,200,.0), rgba(0,255,200,.18), rgba(130,80,255,.20), rgba(255,80,200,.18), rgba(0,255,200,.0));
+  background: conic-gradient(from 180deg,
+    rgba(0,229,255,.0),
+    rgba(0,229,255,.22),
+    rgba(138,91,255,.22),
+    rgba(0,255,154,.18),
+    rgba(0,229,255,.0)
+  );
   filter: blur(14px);
   opacity: .55;
   pointer-events:none;
@@ -354,13 +503,19 @@ th{ text-align:left; font-size:13px; color:#333; }
   margin-top: 12px;
 }
 .total-box{
-  border: 1px solid var(--line);
+  border: 1px solid rgba(140,190,255,.18);
   border-radius: 12px;
   padding: 12px;
-  background: #fff;
+  background: rgba(4,8,14,.55);
 }
-.total-box .n{ font-size: 28px; font-weight: 900; }
-.total-box .t{ font-size: 12px; color: var(--muted); }
+.total-box .n{ font-size: 28px; font-weight: 900; color: rgba(233,242,255,.95); }
+.total-box .t{
+  font-size: 12px;
+  color: var(--muted);
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing:.7px;
+}
 
 /* Hide old KPI grids if you brought them back but don’t want them shown */
 .kpi.is-hidden{ display:none !important; }
@@ -370,9 +525,9 @@ th{ text-align:left; font-size:13px; color:#333; }
 .chart-wrap{
   margin-top: 12px;
   padding: 14px;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(140,190,255,.18);
   border-radius: 12px;
-  background: #fff;
+  background: rgba(4,8,14,.55);
 }
 
 /* One combined chart container */
@@ -396,6 +551,11 @@ th{ text-align:left; font-size:13px; color:#333; }
 
 #resultsCard .chart-wrap h3{
   margin: 0 0 8px;
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: .9px;
+  font-size: 13px;
+  color: rgba(233,242,255,.90);
 }
 
 #resultsCard .chart-canvas{
