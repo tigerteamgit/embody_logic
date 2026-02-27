@@ -953,16 +953,35 @@
       }
       return String(Math.random()).slice(2) + "-" + String(Date.now());
     }
+    
+    /* ---- Safe Bind Helper ---- */
+    function bind(id, handler){
+      const el = document.getElementById(id);
+      if(!el){
+        console.warn("Missing element:", id);
+        return;
+      }
+      el.onclick = handler;
+    }
 
-    /* ---- Bind buttons ONCE ---- */
-    document.getElementById("startBtn").onclick = startLab;
-    document.getElementById("viewResultsBtn").onclick = showStoredResults;
-    document.getElementById("backBtn").onclick = prevRound;
-    nextBtn.onclick = () => { unlockNext(); nextRound(); };
-    document.getElementById("retakeBtn").onclick = () => { resetAttempt(false); showIntro(); };
-    document.getElementById("backHomeBtn").onclick = showIntro;
-    document.getElementById("exportBtn").onclick = exportCSV;
-    document.getElementById("resetAllBtn").onclick = resetAll;
+    /* ---- Bind buttons safely ---- */
+    bind("startBtn", startLab);
+    bind("viewResultsBtn", showStoredResults);
+    bind("backBtn", prevRound);
+    bind("retakeBtn", () => { resetAttempt(false); showIntro(); });
+    bind("backHomeBtn", showIntro);
+    bind("exportBtn", exportCSV);
+    bind("resetAllBtn", resetAll);
+
+    /* Timer buttons */
+    bind("timerStartBtn", startActiveTimer);
+    bind("timerStopBtn", stopActiveTimer);
+    bind("timerResetBtn", resetActiveTimer);
+
+    /* Next button */
+    if(nextBtn){
+      nextBtn.onclick = () => { unlockNext(); nextRound(); };
+    }
 
     /* Manual timer buttons (requires these IDs in cel.html) */
     if(timerStartBtn) timerStartBtn.onclick = startActiveTimer;
