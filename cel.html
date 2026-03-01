@@ -1360,9 +1360,10 @@ window.submitLabToMake = function submitLabToMake(){
 
   console.log("[CEL→MAKE] payload:", payload);
 
+  // IMPORTANT: send as plain text JSON (no CORS preflight)
   const blob = new Blob(
     [JSON.stringify(payload)],
-    { type: "application/json" }
+    { type: "text/plain;charset=UTF-8" }
   );
 
   const ok = navigator.sendBeacon(MAKE_WEBHOOK_URL, blob);
