@@ -22,6 +22,15 @@
   border-radius: 12px;
 }
 
+.preview-actions .button {
+  color: #39e6d2;
+  text-decoration: none;
+}
+
+.preview-actions .button:hover {
+  color: #7ffbf0;
+}
+
 
 /* ---- Creative Expansion Lab: styles.css ---- */
 /* Build stamp (change this line to force a visible diff in commits): 2026-02-27-01 */
