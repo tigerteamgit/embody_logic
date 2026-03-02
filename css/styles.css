@@ -516,22 +516,18 @@ th{
   border-radius: 12px;
 }
 
-/* ---- Preview link color override ---- */
+/* ---- Electric cyan links (no underline) ---- */
 .preview-actions .button,
-.preview-actions .button:visited {
-  color: #5ff6ff !important; /* electric cyan */
-}
-
-.preview-actions .button:hover {
-  color: #00eaff !important; /* brighter on hover */
-}
-
-/* ---- Gumroad button color override ---- */
+.preview-actions .button:visited,
 .button.primary,
 .button.primary:visited {
-  color: #00eaff !important;  /* electric cyan */
+  color: #00eaff !important;   /* electric cyan */
+  text-decoration: none !important;
 }
 
+.preview-actions .button:hover,
 .button.primary:hover {
-  color: #5ff6ff !important;  /* brighter on hover */
+  color: #5ff6ff !important;   /* brighter hover */
+  text-decoration: none !important;
 }
+
