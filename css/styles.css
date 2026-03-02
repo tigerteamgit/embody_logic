@@ -525,3 +525,13 @@ th{
 .preview-actions .button:hover {
   color: #00eaff !important; /* brighter on hover */
 }
+
+/* ---- Gumroad button color override ---- */
+.button.primary,
+.button.primary:visited {
+  color: #00eaff !important;  /* electric cyan */
+}
+
+.button.primary:hover {
+  color: #5ff6ff !important;  /* brighter on hover */
+}
