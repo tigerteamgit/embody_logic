@@ -1,3 +1,10 @@
+.prev-img1 {
+  width: 600px;      /* set exact width */
+  max-width: 100%;   /* keeps it responsive */
+  height: auto;      /* maintains aspect ratio */
+}
+
+
 /* ---- Creative Expansion Lab: styles.css ---- */
 /* Build stamp (change this line to force a visible diff in commits): 2026-02-27-01 */
 
