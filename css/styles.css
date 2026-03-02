@@ -1,14 +1,16 @@
-.modal {
-  display: none;   /* THIS MUST EXIST */
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
+/* ---- Modal overlay ---- */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:9999;
   background: rgba(0,0,0,.75);
   backdrop-filter: blur(4px);
-  align-items: center;
-  justify-content: center;
-  padding: 18px;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
 }
+.modal[aria-hidden="false"]{ display:flex; }
 
 /* ---- Preview thumbnail (must stay small) ---- */
 .preview-thumb{
