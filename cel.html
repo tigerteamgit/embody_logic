@@ -1266,34 +1266,25 @@ function renderComparison(current){
   `;
 }
 
-/* ---- CSV Export ---- */
-function exportCSV(){
+/* ---- JSON Export ---- */
+function exportJSON(){
   const attempts = loadAttempts();
   if(attempts.length === 0){
     alert("No attempts stored on this device yet.");
     return;
   }
 
-  const headers = ["id","attemptType","age", "gender","startedAt","finishedAt","activeSeconds","cei","sei","ees","gap","manualSeconds"];
-  const rows = attempts.map(a => {
-    const m=a.meta, s=a.scores;
-    const vals = [
-      a.id,m.attemptType,m.age, m.gender||"",m.startedAt,m.finishedAt,m.activeSeconds,
-      s.cei,s.sei,s.ees,s.gap,(m.manualSeconds ?? "")
-    ];
-    return vals.map(v => `"${String(v ?? "").replaceAll('"','""')}"`).join(",");
-  });
-
-  const csv = headers.join(",") + "\n" + rows.join("\n");
-  const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+  const json = JSON.stringify(attempts, null, 2);
+  const blob = new Blob([json], { type: "application/json;charset=utf-8" });
   const url = URL.createObjectURL(blob);
 
   const a = document.createElement("a");
   a.href = url;
-  a.download = `creative-expansion-lab_${new Date().toISOString().slice(0,10)}.csv`;
+  a.download = `creative-expansion-lab_${new Date().toISOString().slice(0,10)}.json`;
   document.body.appendChild(a);
   a.click();
   a.remove();
+
   URL.revokeObjectURL(url);
 }
 
@@ -1343,7 +1334,7 @@ safeBindClick("backBtn", prevRound);
 safeBindClick("nextBtn", () => { unlockNext(); nextRound(); });
 safeBindClick("retakeBtn", () => { resetAttempt(false); showIntro(); });
 safeBindClick("backHomeBtn", showIntro);
-safeBindClick("exportBtn", exportCSV);
+safeBindClick("exportBtn", exportJSON);
 safeBindClick("resetAllBtn", resetAll);
 
 /* ---- Init ---- */
