@@ -274,6 +274,14 @@
       </div>
     </div>
 
+    <!-- ---- Conditional Baseline Upload ---- -->
+    <div id="baselineUploadRow" class="baseline-upload">
+      <label for="baselineFile" class="button secondary">
+        Upload Baseline JSON
+      </label>
+      <input type="file" id="baselineFile" accept=".json" hidden />
+    </div>
+
     <div class="btns">
       <button class="btn-primary" id="startBtn" type="button">Start Lab</button>
       <button class="btn-soft" id="viewResultsBtn" type="button">View Stored Results</button>
@@ -295,7 +303,7 @@
 
   <div class="card" id="resultsCard" style="display:none;">
     <h2>Results</h2>
-    <p class="muted">Scores are stored locally (on this device). Export CSV if you want your database portable.</p>
+    <p class="muted">Scores are stored locally (on this device). Export JSON if you want your database portable.</p>
 
     <div class="totals">
       <div class="total-box">
@@ -358,15 +366,7 @@
       </button>
     </div>
   </div>
-</main>
-
-<!-- ---- Baseline Upload ---- -->
-<div class="baseline-upload">
-  <label for="baselineFile" class="button secondary">
-    Upload Baseline
-  </label>
-  <input type="file" id="baselineFile" accept=".json" hidden />
-</div>  
+</main> 
 
 <!-- ---- Chart.js (load once) ---- -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
