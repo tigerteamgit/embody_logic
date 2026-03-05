@@ -402,7 +402,7 @@
         // Close buttons
         introModal?.querySelector(".modal-close")?.addEventListener("click", () => closeModal(introModal));
         imageModal?.querySelector(".modal-close")?.addEventListener("click", () => closeModal(imageModal));
-        imageModal?.querySelector(".modal-close")?.addEventListener("click", () => closeModal(imageModal2));
+        imageModal2?.querySelector(".modal-close")?.addEventListener("click", () => closeModal(imageModal2));
 
         // Click backdrop to close
         introModal?.addEventListener("click", (e) => { if(e.target === introModal) closeModal(introModal); });
