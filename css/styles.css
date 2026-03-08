@@ -501,6 +501,7 @@ th{
 }
 
 /* ---- Modal overlay ---- */
+/*
 .modal{
   display:none;
   position:fixed;
@@ -512,7 +513,7 @@ th{
   justify-content:center;
   padding:18px;
 }
-.modal[aria-hidden="false"]{ display:flex; }
+.modal[aria-hidden="false"]{ display:flex; }*/
 
 /* ---- Preview thumbnail (must stay small) ---- */
 .preview-thumb{
