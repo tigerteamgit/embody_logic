@@ -279,7 +279,7 @@
       <label for="baselineFile" class="button secondary">
         Upload Baseline JSON
       </label>
-      <input type="file" id="baselineFile" accept=".json" hidden />
+      <input type="file" id="baselineFile" accept=".json"/>
     </div>
 
     <div class="btns">
@@ -413,13 +413,20 @@ function fmtTime(sec){
 }
 
 /* ---- Toggle baseline upload visibility ---- */
-function updateBaselineUploadVisibility(){
-  const attempt = document.getElementById("attemptType")?.value;
+function updateBaselineUpload(){
+  const attempt = document.getElementById("attemptType").value;
   const row = document.getElementById("baselineUploadRow");
-  if(!row) return;
 
   row.style.display = attempt === "post" ? "block" : "none";
-}  
+}
+
+/* ---- Bind attempt change ---- */
+document
+  .getElementById("attemptType")
+  .addEventListener("change", updateBaselineUpload);
+
+/* ---- Initialize ---- */
+updateBaselineUpload();
 
 /* ---- Round definitions (Somatic first) ---- */
 const ROUNDS = [
