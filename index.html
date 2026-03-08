@@ -241,6 +241,38 @@
         opacity: 1 !important;
       }
     }
+
+    /* ---- Cyber Button ---- */
+    .cyber-btn{
+      display:inline-block;
+      padding:10px 18px;
+      margin:6px 8px 6px 0;
+      border-radius:14px;
+
+      color:#3ff6ff;
+      text-decoration:none;
+      font-weight:500;
+
+      background:rgba(0,0,0,0.55);
+      backdrop-filter:blur(6px);
+
+      border:1px solid rgba(80,255,255,0.35);
+
+      box-shadow:
+        0 0 8px rgba(0,255,255,0.35),
+        inset 0 0 6px rgba(0,255,255,0.15);
+
+      transition:all .25s ease;
+    }
+
+    /* hover glow */
+    .cyber-btn:hover{
+      background:rgba(0,0,0,0.75);
+      box-shadow:
+        0 0 16px rgba(0,255,255,0.7),
+        inset 0 0 10px rgba(0,255,255,0.3);
+      transform:translateY(-1px);
+    }
   </style>
 </head>
 
@@ -264,9 +296,9 @@
           <p>You can explore how the system works before buying.</p>
 
           <div class="preview-actions">
-            <a href="#" id="openIntroModal" class="button">Read Introduction</a>
-            <a href="#" id="openImageModal" class="button">View Assessment Image</a>
-            <a href="#" id="openImageModal2" class="button">View Exercise Image</a>
+            <a href="#" id="openIntroModal" class="cyber-btn">Read Introduction</a>
+            <a href="#" id="openImageModal" class="cyber-btn">View Assessment Image</a>
+            <a href="#" id="openImageModal2" class="cyber-btn">View Exercise Image</a>
           </div>
           <!--
           <img
@@ -283,7 +315,7 @@
           <h2>Get Full Access</h2>
           <p>Purchase to receive your private access link instantly.</p>
           <a
-            class="button primary"
+            class="cyber-btn"
             id="buyBtn"
             href="https://tigertech5.gumroad.com/l/dqwmf?_gl=1*1f4id8i*_ga*MTgzODMzMTcxMi4xNzcwMzg3Mzc0*_ga_6LJN6D94N6*czE3NzA1ODQ4OTEkbzckZzEkdDE3NzA1ODc0NzckajQkbDAkaDA."
             target="_blank"
