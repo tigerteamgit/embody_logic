@@ -969,6 +969,10 @@ function showResults(attempt){
   renderComparison(attempt);
 
   requestAnimationFrame(() => renderCharts(attempt));
+  
+  /* ✅ CALL the function here */
+  renderResultsComments(attempt);
+  }
 
   /* ---- Display user comments in Results card ---- */
   function renderResultsComments(attempt){
@@ -988,8 +992,7 @@ function showResults(attempt){
       div.classList.add('result-comment');
       div.innerHTML = `<strong>${escapeHtml(c.name)}</strong> <em>${escapeHtml(c.date)}</em><p>${escapeHtml(c.text)}</p>`;
       commentsSection.appendChild(div);
-    });
-  }
+  });
 }
 
 /* ---- Start / Reset ---- */
