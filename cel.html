@@ -945,7 +945,7 @@ function showLab(){
 function showResults(attempt){
   
   document.getElementById("feedbackCard").style.display =
-    attempt.phase === "post" ? "block" : "none";
+    currentRound === 1 ? "block" : "none";
   
   window.CEL_LAST_ATTEMPT = attempt;
   introCard.style.display = "none";
