@@ -365,18 +365,6 @@
         Submit to Make
       </button>
     </div>
-
-    <div class="results-comments-form">
-      <h3>Leave Feedback</h3>
-
-      <input id="commentName" placeholder="Your name (optional)" />
-
-      <textarea id="commentText" placeholder="Your feedback about this exercise"></textarea>
-
-      <button onclick="submitResultsComment()">Submit Feedback</button>
-
-      <div class="results-comments"></div>
-    </div>
   </div>
 </main> 
 
@@ -987,53 +975,24 @@ function showResults(attempt){
   }
 
   /* ---- Display user comments in Results card ---- */
-function renderResultsComments(attempt){
+  function renderResultsComments(attempt){
+    if(!attempt.comments || !attempt.comments.length) return;
 
-  let commentsSection = resultsCard.querySelector('.results-comments');
-  if(!commentsSection) return;
+    let commentsSection = resultsCard.querySelector('.results-comments');
+    if(!commentsSection){
+      commentsSection = document.createElement('div');
+      commentsSection.classList.add('results-comments');
+      commentsSection.innerHTML = '<h3>User Feedback</h3>';
+      resultsCard.appendChild(commentsSection);
+    }
 
-  commentsSection.innerHTML = "";
-
-  if(!attempt.comments || !attempt.comments.length){
-    commentsSection.innerHTML = "<p class='muted'>No feedback yet.</p>";
-    return;
-  }
-
-  attempt.comments.forEach(c => {
-    const div = document.createElement("div");
-    div.classList.add("result-comment");
-    div.innerHTML =
-      `<strong>${escapeHtml(c.name)}</strong>
-       <em style="margin-left:6px;">${escapeHtml(c.date)}</em>
-       <p>${escapeHtml(c.text)}</p>`;
-    commentsSection.appendChild(div);
+    commentsSection.innerHTML = '<h3>User Feedback</h3>'; // clear previous
+    attempt.comments.forEach(c => {
+      const div = document.createElement('div');
+      div.classList.add('result-comment');
+      div.innerHTML = `<strong>${escapeHtml(c.name)}</strong> <em>${escapeHtml(c.date)}</em><p>${escapeHtml(c.text)}</p>`;
+      commentsSection.appendChild(div);
   });
-}
-
-/* ---- Submit Results Comment ---- */
-function submitResultsComment(){
-
-  const name = document.getElementById("commentName").value || "Anonymous";
-  const text = document.getElementById("commentText").value.trim();
-
-  if(!text) return;
-
-  const attempt = window.CEL_LAST_ATTEMPT;
-
-  if(!attempt.comments){
-    attempt.comments = [];
-  }
-
-  attempt.comments.push({
-    name,
-    text,
-    date: new Date().toLocaleDateString()
-  });
-
-  document.getElementById("commentText").value = "";
-
-  renderResultsComments(attempt);
-  }
 }
 
 /* ---- Start / Reset ---- */
