@@ -2,72 +2,42 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Audio Wheel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Frequency Wheel</title>
+
 <link rel="stylesheet" href="wheel.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mediaelement@7/dist/mediaelementplayer.min.css">
+
+ 
+
 </head>
 
 <body>
 
-<audio controls>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-</audio>  
-
-<audio controls>
-  <source src="https://soundcloud.com/search?q=174hz%20solfeggio">
-</audio>
-
-<audio src="sounds/174hz.mp3" controls autoplay loop></audio>  
-
-<audio controls>
-  <source src="https://tigerteamgit.github.io/embody_logic_lab/sound-wheel/sounds/174hz.mp3" type="audio/mpeg">
-</audio>  
-
 <div class="wheel">
 
-<div id="wheelModal" class="modal">
+<div class="ring" id="ring"></div>
 
-<div class="modal-content">
+<button class="pad p1" onclick="playFreq('sounds/174hz.mp3',174)">174</button>
+<button class="pad p2" onclick="playFreq('sounds/258hz.mp3',258)">258</button>
+<button class="pad p3" onclick="playFreq('sounds/369hz.mp3',369)">369</button>
+<button class="pad p4" onclick="playFreq('sounds/417hz.mp3',417)">417</button>
+<button class="pad p5" onclick="playFreq('sounds/528hz.mp3',528)">528</button>
+<button class="pad p6" onclick="playFreq('sounds/672hz.mp3',672)">672</button>
 
-<span id="closeWheel" class="close">✕</span>
+<div class="center" id="centerPlayer">
 
-<div class="wheel">
-
-<button class="pad p1" data-sound="a1">1</button>
-<button class="pad p2" data-sound="a2">2</button>
-<button class="pad p3" data-sound="a3">3</button>
-<button class="pad p4" data-sound="a4">4</button>
-<button class="pad p5" data-sound="a5">5</button>
-<button class="pad p6" data-sound="a6">6</button>
-
-<div class="center">SOUNDS</div>
+<div id="freqLabel">PLAY</div>
 
 </div>
 
 </div>
 
-</div>  
-
-<button class="pad p1" onclick="play('a1')">1</button>
-<button class="pad p2" onclick="play('a2')">2</button>
-<button class="pad p3" onclick="play('a3')">3</button>
-<button class="pad p4" onclick="play('a4')">4</button>
-<button class="pad p5" onclick="play('a5')">5</button>
-<button class="pad p6" onclick="play('a6')">6</button>
-
-
-<div class="center">PLAY</div>
-
-</div>
-
-<audio id="a1" src="sounds/174hz.mp3"></audio>
-<audio id="a2" src="sounds/258hz.mp3"></audio>
-<audio id="a3" src="sounds/369hz.mp3"></audio>
-<audio id="a4" src="sounds/417hz.mp3"></audio>
-<audio id="a5" src="sounds/528hz.mp3"></audio>
-<audio id="a6" src="sounds/672hz.mp3"></audio>
-
+<audio id="player"></audio>
 
 <script src="wheel.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mediaelement@7/dist/mediaelement-and-player.min.js"></script> 
 
 </body>
 </html>
