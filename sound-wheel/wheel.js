@@ -28,6 +28,15 @@ if(audio) audio.play();
 
 }
 
+function playClip(file){
+
+const player = document.getElementById("player");
+
+player.src = "sounds/" + file;
+
+player.play();
+
+}
 
 /* ---- Button Handlers ---- */
 
