@@ -71,7 +71,7 @@
 
   function blueByValue(values){
     const t = normalizeValues(values);
-    const hue = 210;
+    const hue = 170;
     const sat = 78;
     const lightLow = 72;
     const lightHigh = 26;
