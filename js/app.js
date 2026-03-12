@@ -1060,7 +1060,7 @@ if (fullAccessCard && isUnlocked) {
 
     /* ---- Gumroad Redirect ---- */
     function goToGumroad(){
-      window.location.href = "https://yourproduct.gumroad.com/l/your-product";
+      window.location.href = "https://tigerteamgit.github.io/embody_logic/?access=123TTR";
     }
 
     /* ---- Bind buttons safely ---- */
